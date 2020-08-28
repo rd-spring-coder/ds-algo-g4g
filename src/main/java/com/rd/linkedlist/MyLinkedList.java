@@ -27,18 +27,20 @@ public class MyLinkedList {
         temp.next = newNode;
     }
 
-    public void printNodes(){
+    public String printNodes(){
         SinglyLLNode temp = head;
+        StringBuilder builder = new StringBuilder();
         if(head == null)
-            return;
-        while(temp!=null){
-            if(temp.next!=null){
-                System.out.print(temp.data+"-->");
-            }else {
-                System.out.println(temp.data);
+            return null;
+        while (temp != null) {
+            if (temp.next != null) {
+                builder.append(temp.data + "-->");
+            } else {
+                builder.append(temp.data);
             }
             temp = temp.next;
         }
+        return builder.toString();
     }
 
     public SinglyLLNode getHead(){
