@@ -32,5 +32,22 @@ public class LinkedListDriver {
         LOG.info("Nth Node of the LL from the end - Two Pointer Technique: {}", LinkedListAlgoUtils.nthNodeOfLLUsingTwoPointerTechnique(linkedList.getHead(),nthNode));
         LOG.info("---------------Nth Node of the Linked List from the end [END]---------------");
 
+        LOG.info("---------------Original Linked list [START]---------------");
+        LOG.info(linkedList.printNodes());
+        LOG.info("---------------Original Linked list [END]---------------");
+        LOG.info("---------------Reverse of a linked list Brute Force[START]---------------");
+        MyLinkedList reversed = LinkedListAlgoUtils.reverseUsingBruteForceIterative(linkedList.getHead());
+        LOG.info("Head data of reversed ll : {}", reversed.getHead().data);
+        LOG.info(reversed.printNodes());
+        LOG.info("---------------Reverse of a linked list [END]]---------------");
+
+        LOG.info("---------------Original Linked list [START]---------------");
+        LOG.info(linkedList.printNodes());
+        LOG.info("---------------Original Linked list [END]---------------");
+        LOG.info("---------------Reverse of a linked list Efficient Iteration[START]---------------");
+        SinglyLLNode reversedEfficientPtrTechHead = LinkedListAlgoUtils.reverseUsingEfficientPointerTechniqueIterative(linkedList.getHead());
+        LOG.info("Head data of reversed ll : {}", reversedEfficientPtrTechHead);
+        LOG.info(LinkedListAlgoUtils.printNodes(reversedEfficientPtrTechHead));
+        LOG.info("---------------Reverse of a linked list Efficient Iteration[END]]---------------");
     }
 }

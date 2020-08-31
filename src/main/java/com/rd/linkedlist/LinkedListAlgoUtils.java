@@ -3,6 +3,9 @@ package com.rd.linkedlist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LinkedListAlgoUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedListAlgoUtils.class.getName());
@@ -67,7 +70,7 @@ public class LinkedListAlgoUtils {
 
         SinglyLLNode current = head;
         SinglyLLNode temp = head;
-        for( int i = 0; i < lengthOfLL-nthNode+1; i++){
+        for( int i = 1; i < lengthOfLL-nthNode+1; i++){
             temp = current;
             if(current!=null)
                 current = current.next;
@@ -87,6 +90,7 @@ public class LinkedListAlgoUtils {
         if(isLLEmpty(head)){
             return null;
         }
+
         SinglyLLNode first = head;
         for(int i = 0; i < nthNode; i++){
             first = first.next;
@@ -95,9 +99,62 @@ public class LinkedListAlgoUtils {
         SinglyLLNode second = head;
         while(first != null ){
             first = first.next;
-            second = second.next;
+            if(first!=null)
+                second = second.next;
         }
         return second.data;
+    }
+
+    /**
+     *
+     * @param head head pointer of the linked list
+     * @return reversed linked list with head pointed to the last element of the provided head linked list
+     * using brute force technique
+     */
+    public static MyLinkedList reverseUsingBruteForceIterative(SinglyLLNode head){
+        List<Integer> auxList = new ArrayList<>();
+        SinglyLLNode current = head;
+
+        if(current == null){
+            return null;
+        }
+
+        MyLinkedList reversedLL = new MyLinkedList();
+        while(current!=null){
+            auxList.add(current.data);
+            current = current.next;
+        }
+
+        for(int i = auxList.size()-1; i>=0; i--){
+            reversedLL.insertAtEnd(auxList.get(i));
+        }
+        return reversedLL;
+    }
+
+    /**
+     *
+     * @param head head pointer of the linked list
+     * @return reversed linked list with head pointed to the last element of the provided head linked list
+     * using next, prev and current pointers
+     */
+    public static SinglyLLNode reverseUsingEfficientPointerTechniqueIterative(SinglyLLNode head){
+        SinglyLLNode current = head;
+
+        if(current == null){
+            return null;
+        }
+
+        SinglyLLNode next = null;
+        SinglyLLNode prev = null;
+
+        while(current!=null){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
     }
 
     /**
@@ -123,5 +180,26 @@ public class LinkedListAlgoUtils {
      */
     private static boolean isLLEmpty(SinglyLLNode head){
         return head == null;
+    }
+
+    /**
+     *
+     * @param temp
+     * @return String representation of nodes of the linked list starting from head
+     * e.g. 10-->20-->30-->40-->50
+     */
+    public static String printNodes(SinglyLLNode temp){
+        StringBuilder builder = new StringBuilder();
+        if(temp == null)
+            return null;
+        while (temp != null) {
+            if (temp.next != null) {
+                builder.append(temp.data + "-->");
+            } else {
+                builder.append(temp.data);
+            }
+            temp = temp.next;
+        }
+        return builder.toString();
     }
 }
