@@ -159,6 +159,39 @@ public class LinkedListAlgoUtils {
 
     /**
      *
+     * @param head - pointer to the next node
+     * @return new head after reversing the linked list
+     */
+    public static SinglyLLNode recursiveReverseFromEnd(SinglyLLNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        SinglyLLNode rest_head = recursiveReverseFromEnd(head.next);
+        SinglyLLNode rest_tail = head.next;
+        rest_tail.next = head;
+        head.next = null;
+        return rest_head;
+    }
+
+    /**
+     *
+     * @param current - pointer to the next head
+     * @param prev - pointer to the prev node of head
+     * @return new head after reversing the linked list
+     */
+    public static SinglyLLNode recursiveReverseFromBeginning(SinglyLLNode current, SinglyLLNode prev){
+        if(current == null){
+            return prev;
+        }
+
+        SinglyLLNode next = current.next;
+        current.next = prev;
+        return recursiveReverseFromBeginning(next, current);
+    }
+
+    /**
+     *
      * @param head head pointer of the linked list
      * @return number of elements in a given linked list
      */

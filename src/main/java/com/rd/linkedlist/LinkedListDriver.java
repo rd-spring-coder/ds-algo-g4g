@@ -1,5 +1,6 @@
 package com.rd.linkedlist;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +10,7 @@ public class LinkedListDriver {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedListDriver.class.getName());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
         MyLinkedList linkedList = new MyLinkedList();
         linkedList.insertAtBeginning(50);
         linkedList.insertAtBeginning(40);
@@ -45,9 +46,30 @@ public class LinkedListDriver {
         LOG.info(linkedList.printNodes());
         LOG.info("---------------Original Linked list [END]---------------");
         LOG.info("---------------Reverse of a linked list Efficient Iteration[START]---------------");
-        SinglyLLNode reversedEfficientPtrTechHead = LinkedListAlgoUtils.reverseUsingEfficientPointerTechniqueIterative(linkedList.getHead());
-        LOG.info("Head data of reversed ll : {}", reversedEfficientPtrTechHead);
+        MyLinkedList tempEfficientLinkedList = (MyLinkedList) SerializationUtils.clone(linkedList);
+        SinglyLLNode reversedEfficientPtrTechHead = LinkedListAlgoUtils.reverseUsingEfficientPointerTechniqueIterative(tempEfficientLinkedList.getHead());
+        LOG.info("Head data of reversed ll : {}", reversedEfficientPtrTechHead.data);
         LOG.info(LinkedListAlgoUtils.printNodes(reversedEfficientPtrTechHead));
         LOG.info("---------------Reverse of a linked list Efficient Iteration[END]]---------------");
+
+        LOG.info("---------------Original Linked list [START]---------------");
+        LOG.info(linkedList.printNodes());
+        LOG.info("---------------Original Linked list [END]---------------");
+        LOG.info("---------------Recursive Reverse of a linked list From End[START]---------------");
+        MyLinkedList tempFromEndLinkedList = (MyLinkedList) SerializationUtils.clone(linkedList);
+        SinglyLLNode reversedHeadFromEnd = LinkedListAlgoUtils.recursiveReverseFromEnd(tempFromEndLinkedList.getHead());
+        LOG.info("Head data of reversed ll : {}", reversedHeadFromEnd.data);
+        LOG.info(LinkedListAlgoUtils.printNodes(reversedHeadFromEnd));
+        LOG.info("---------------Recursive Reverse of a linked list From End[END]---------------");
+
+        LOG.info("---------------Original Linked list [START]---------------");
+        LOG.info(linkedList.printNodes());
+        LOG.info("---------------Original Linked list [END]---------------");
+        LOG.info("---------------Recursive Reverse of a linked list From End[START]---------------");
+        MyLinkedList tempFromBeginningLinkedList = (MyLinkedList) SerializationUtils.clone(linkedList);
+        SinglyLLNode reversedHeadFromBeginning = LinkedListAlgoUtils.recursiveReverseFromBeginning(tempFromBeginningLinkedList.getHead(), null);
+        LOG.info("Head data of reversed ll : {}", reversedHeadFromBeginning.data);
+        LOG.info(LinkedListAlgoUtils.printNodes(reversedHeadFromBeginning));
+        LOG.info("---------------Recursive Reverse of a linked list From End[END]---------------");
     }
 }

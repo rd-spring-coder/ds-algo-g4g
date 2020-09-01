@@ -1,6 +1,8 @@
 package com.rd.linkedlist;
 
-public class SinglyLLNode {
+import java.io.Serializable;
+
+public class SinglyLLNode implements Serializable {
 
     int data;
     SinglyLLNode next;

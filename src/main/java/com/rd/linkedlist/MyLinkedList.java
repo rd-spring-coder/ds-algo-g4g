@@ -1,12 +1,13 @@
 package com.rd.linkedlist;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * @author riteshdharmatti
  * Custom data structure for linked list
  */
-public class MyLinkedList {
+public class MyLinkedList implements Serializable {
 
     SinglyLLNode head;
 
