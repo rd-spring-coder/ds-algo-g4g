@@ -1,3 +1,7 @@
+_**Notes**_
+------------
+1. Uses Log and Apache Commons Lang dependencies for Logging and Object cloning capabilities
+
 Topic | Date |
 ---:|---| 
 **Middle Node of Linked List** | **08-27-20** | 
