@@ -9,6 +9,7 @@ Topic | Date |
 **Reverse a linked list** | **09-01-20** |
 **Floyd Cycle Detection Algorithm, Remove Loop** | **09-04-20** |
 **Delete a Node** | **09-04-20** |
+**Segregate even odd nodes, and preserve order** | **09-04-20** |
 
 Middle Node of Linked List
 ---------------------
@@ -52,3 +53,8 @@ Delete Node except Tail
 ------------------------
 
 _LinkedListAlgoUtils deleteNodeExceptTail_
+
+Segregate even odd nodes, and preserve order
+---------------------------------------------
+
+_LinkedListAlgoUtils _

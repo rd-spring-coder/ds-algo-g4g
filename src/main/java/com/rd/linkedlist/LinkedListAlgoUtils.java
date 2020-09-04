@@ -392,4 +392,57 @@ public class LinkedListAlgoUtils {
         nodeToBeDeleted.data = nodeToBeDeleted.next.data;
         nodeToBeDeleted.next = nodeToBeDeleted.next.next;
     }
+
+    /**
+     *
+     * @param head head pointer of the original list
+     * @return head pointer of the segregated linked list
+     */
+    public static SinglyLLNode segregateEvenOdd(SinglyLLNode head){
+        SinglyLLNode evenStart = null;
+        SinglyLLNode evenEnd = null;
+        SinglyLLNode oddStart = null;
+        SinglyLLNode oddEnd = null;
+
+        for(SinglyLLNode current = head; current!=null; current = current.next){
+            int data = current.data;
+            if(data % 2 == 0){
+                if(evenStart == null){
+                    evenStart = current;
+                    evenEnd = evenStart;
+                }else{
+                    evenEnd.next = current;
+                    evenEnd =   evenEnd.next;
+                }
+//                setStartEnd(evenStart, evenEnd, current);
+            }else{
+                if(oddStart == null){
+                    oddStart = current;
+                    oddEnd = oddStart;
+                }else{
+                    oddEnd.next = current;
+                    oddEnd =   oddEnd.next;
+                }
+//                setStartEnd(oddStart, oddEnd, current);
+            }
+        }
+
+        if(evenStart == null || oddStart == null){
+            return head;
+        }
+        evenEnd.next = oddStart;
+        oddEnd.next = null;
+        return evenStart;
+    }
+
+    //For some reason, this refactoring doesn't work, Will investigate later
+    private static void setStartEnd(SinglyLLNode start, SinglyLLNode end, SinglyLLNode current) {
+        if(start == null){
+            start = current;
+            end = start;
+        }else{
+            end.next = current;
+            end =   end.next;
+        }
+    }
 }

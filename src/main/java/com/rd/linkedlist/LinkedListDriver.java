@@ -18,6 +18,13 @@ public class LinkedListDriver {
         linkedList.insertAtBeginning(20);
         linkedList.insertAtBeginning(10);
 
+        MyLinkedList evenOddLinkedList = new MyLinkedList();
+        evenOddLinkedList.insertAtBeginning(5);
+        evenOddLinkedList.insertAtBeginning(4);
+        evenOddLinkedList.insertAtBeginning(3);
+        evenOddLinkedList.insertAtBeginning(2);
+        evenOddLinkedList.insertAtBeginning(1);
+
         LOG.info("Nodes of the LL : {} ", linkedList.printNodes());
 
         LOG.info("---------------Middle Node of the Linked List [START]---------------");
@@ -108,6 +115,13 @@ public class LinkedListDriver {
         LOG.info("---------------DELETED NODE, PRINTING LIST NODES---------------");
         LOG.info(deleteNodeExceptTailList.printNodes());
         LOG.info("---------------DELETE NODE EXCEPT TAIL[END]---------------");
+
+        LOG.info("---------------SEGREGATE EVEN ODD NODES[START]---------------");
+        MyLinkedList evenOddSegregatedList =  (MyLinkedList) SerializationUtils.clone(evenOddLinkedList);
+        SinglyLLNode headNodeAfterSegregation = LinkedListAlgoUtils.segregateEvenOdd(evenOddSegregatedList.getHead());
+        LOG.info("---------------SEGREGATED NODES, PRINTING LIST NODES---------------");
+        LOG.info(LinkedListAlgoUtils.printNodes(headNodeAfterSegregation));
+        LOG.info("---------------SEGREGATE EVEN ODD NODES[END]---------------");
 
     }
 }
