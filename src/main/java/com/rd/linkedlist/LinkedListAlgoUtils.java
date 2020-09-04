@@ -1,14 +1,17 @@
 package com.rd.linkedlist;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LinkedListAlgoUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LinkedListAlgoUtils.class.getName());
+//    private static final Logger LOG = LoggerFactory.getLogger(LinkedListAlgoUtils.class.getName());
 
     /**
      * Brute Force approach of traversing through a given linked list
@@ -144,11 +147,10 @@ public class LinkedListAlgoUtils {
             return null;
         }
 
-        SinglyLLNode next = null;
         SinglyLLNode prev = null;
 
         while(current!=null){
-            next = current.next;
+            SinglyLLNode next = current.next;
             current.next = prev;
             prev = current;
             current = next;
@@ -190,6 +192,63 @@ public class LinkedListAlgoUtils {
         return recursiveReverseFromBeginning(next, current);
     }
 
+//    public static SinglyLLNode reverseInGroupsOfSizeK(SinglyLLNode head, int k, int iterationCnt){
+//
+//        SinglyLLNode nextHead = head;
+//        SinglyLLNode current = head;
+//        SinglyLLNode reversedHead = null;
+//        SinglyLLNode prevNode = null;
+//
+//        int i = 1;
+//        while(current!=null && i < k){
+//            SinglyLLNode nextNode = current.next;
+//            if(i == k-1){
+//                nextHead = nextNode.next;
+//            }else {
+//                prevNode = current;
+//                nextNode.next = prevNode;
+//                current = nextNode;
+//            }
+//
+//
+//            if(iterationCnt == 0){
+//                reversedHead = current;
+//            }
+//            i++;
+//        }
+//
+//        reverseInGroupsOfSizeK(nextHead, k, iterationCnt++);
+//
+//        return reversedHead;
+//    }
+
+    /**
+     *
+     * @param head - current head pointer
+     * @param k - group size
+     * @return - head of the reversed linked list in groups of size k
+     */
+    public static SinglyLLNode recursivelyReverseInGroupsOfSizeK(SinglyLLNode head, int k){
+        SinglyLLNode current = head;
+        SinglyLLNode prev = null;
+        SinglyLLNode next = null;
+        int count = 0;
+
+        while(current != null && count < k){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+            count++;
+        }
+
+        if(next!=null){
+            head.next = recursivelyReverseInGroupsOfSizeK(next, k);
+        }
+
+        return prev;
+    }
+
     /**
      *
      * @param head head pointer of the linked list
@@ -217,7 +276,7 @@ public class LinkedListAlgoUtils {
 
     /**
      *
-     * @param temp
+     * @param temp current pointer
      * @return String representation of nodes of the linked list starting from head
      * e.g. 10-->20-->30-->40-->50
      */
@@ -227,7 +286,7 @@ public class LinkedListAlgoUtils {
             return null;
         while (temp != null) {
             if (temp.next != null) {
-                builder.append(temp.data + "-->");
+                builder.append(temp.data).append("-->");
             } else {
                 builder.append(temp.data);
             }
@@ -235,4 +294,94 @@ public class LinkedListAlgoUtils {
         }
         return builder.toString();
     }
+
+    /**
+     *
+     * @param head head of the linked list
+     * @return last node of the linked list
+     */
+    public static SinglyLLNode getLastNode(SinglyLLNode head){
+        SinglyLLNode temp = head;
+        while(temp!=null){
+            temp = temp.next;
+            if(temp.next==null){
+                return temp;
+            }
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param linkedList linkedlist to use for creating a dummy linked list with cycle
+     * @return cyclic linked list
+     */
+    public static MyLinkedList createCyclicLinkedList(MyLinkedList linkedList) {
+        MyLinkedList floydCycleDetectionList = (MyLinkedList) SerializationUtils.clone(linkedList);
+        SinglyLLNode lastNode = getLastNode(floydCycleDetectionList.getHead());
+        //Create a cycle here
+        lastNode.next = floydCycleDetectionList.getHead().next.next;
+        return floydCycleDetectionList;
+    }
+
+    /**
+     *
+     * @param head head pointer of the linked list
+     * @return true if cycle exists else false
+     */
+    public static boolean floydCycleDetection( SinglyLLNode head){
+
+        SinglyLLNode slow = head;
+        SinglyLLNode fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param head head pointer of the linked list
+     */
+    public static void detectAndRemoveLoop( SinglyLLNode head){
+        Set<SinglyLLNode> nonCyclicSet = new HashSet<>();
+        SinglyLLNode current = head;
+        while(current!=null){
+            if(nonCyclicSet.contains(current.next)){
+                current.next = null;
+            }
+            nonCyclicSet.add(current);
+            current = current.next;
+        }
+    }
+
+    /**
+     *
+     * @param head head pointer of the linked list
+     */
+    public static void detectAndRemoveLoopUsingFloydAlgorithm( SinglyLLNode head){
+        SinglyLLNode slow = head;
+        SinglyLLNode fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                break;
+            }
+        }
+        if(slow!=fast){
+            return;
+        }
+        slow = head;
+        while(slow.next != fast.next){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        fast.next = null;
+    }
+
 }

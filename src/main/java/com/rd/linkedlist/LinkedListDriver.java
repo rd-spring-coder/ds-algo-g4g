@@ -10,7 +10,7 @@ public class LinkedListDriver {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkedListDriver.class.getName());
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) {
         MyLinkedList linkedList = new MyLinkedList();
         linkedList.insertAtBeginning(50);
         linkedList.insertAtBeginning(40);
@@ -71,5 +71,22 @@ public class LinkedListDriver {
         LOG.info("Head data of reversed ll : {}", reversedHeadFromBeginning.data);
         LOG.info(LinkedListAlgoUtils.printNodes(reversedHeadFromBeginning));
         LOG.info("---------------Recursive Reverse of a linked list From End[END]---------------");
+
+        LOG.info("---------------Original Linked list [START]---------------");
+        LOG.info(linkedList.printNodes());
+        LOG.info("---------------Original Linked list [END]---------------");
+        LOG.info("---------------Recursive Reverse of a linked list in groups of size K[START]---------------");
+        MyLinkedList revGrpKList = (MyLinkedList) SerializationUtils.clone(linkedList);
+        SinglyLLNode revGrpKHead = LinkedListAlgoUtils.recursivelyReverseInGroupsOfSizeK(revGrpKList.getHead(), 3);
+        LOG.info("Head data of reversed ll : {}", revGrpKHead.data);
+        LOG.info("Reversed Linked List : {}", LinkedListAlgoUtils.printNodes(revGrpKHead));
+        LOG.info("---------------Recursive Reverse of a linked list in groups of size K[END]---------------");
+
+        LOG.info("---------------FLOYD CYCLE DETECTION ALGORITHM [START]---------------");
+        MyLinkedList floydCycleDetectionList = LinkedListAlgoUtils.createCyclicLinkedList(linkedList);
+        boolean cyclic = LinkedListAlgoUtils.floydCycleDetection(floydCycleDetectionList.getHead());
+        LOG.info("Cycle exists : {}", cyclic);
+        LOG.info("---------------FLOYD CYCLE DETECTION ALGORITHM [END]---------------");
+
     }
 }
