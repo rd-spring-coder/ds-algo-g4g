@@ -384,4 +384,12 @@ public class LinkedListAlgoUtils {
         fast.next = null;
     }
 
+    /**
+     * The trick here is to copy next nodes data into current node and replace reference of next node to point to its next node
+     * @param nodeToBeDeleted reference of the node to be deleted
+     */
+    public static void deleteNodeExceptTail(SinglyLLNode nodeToBeDeleted){
+        nodeToBeDeleted.data = nodeToBeDeleted.next.data;
+        nodeToBeDeleted.next = nodeToBeDeleted.next.next;
+    }
 }

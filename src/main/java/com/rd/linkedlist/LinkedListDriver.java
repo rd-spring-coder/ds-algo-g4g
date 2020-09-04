@@ -88,5 +88,26 @@ public class LinkedListDriver {
         LOG.info("Cycle exists : {}", cyclic);
         LOG.info("---------------FLOYD CYCLE DETECTION ALGORITHM [END]---------------");
 
+        LOG.info("---------------DETECT AND REMOVE LOOP [START]---------------");
+        MyLinkedList detectAndRemoveLoopList = LinkedListAlgoUtils.createCyclicLinkedList(linkedList);
+        LinkedListAlgoUtils.detectAndRemoveLoop(detectAndRemoveLoopList.getHead());
+        LOG.info("---------------REMOVED LOOP, PRINTING NODES---------------");
+        LOG.info(detectAndRemoveLoopList.printNodes());
+        LOG.info("---------------DETECT AND REMOVE LOOP [END]---------------");
+
+        LOG.info("---------------DETECT AND REMOVE LOOP USING FLOYD'S ALGORITHM[START]---------------");
+        MyLinkedList detectAndRemoveLoopFloydList = LinkedListAlgoUtils.createCyclicLinkedList(linkedList);
+        LinkedListAlgoUtils.detectAndRemoveLoopUsingFloydAlgorithm(detectAndRemoveLoopFloydList.getHead());
+        LOG.info("---------------REMOVED LOOP, PRINTING NODES---------------");
+        LOG.info(detectAndRemoveLoopFloydList.printNodes());
+        LOG.info("---------------DETECT AND REMOVE LOOP USING FLOYD'S ALGORITHM[END]---------------");
+
+        LOG.info("---------------DELETE NODE EXCEPT TAIL[START]---------------");
+        MyLinkedList deleteNodeExceptTailList =  (MyLinkedList) SerializationUtils.clone(linkedList);
+        LinkedListAlgoUtils.deleteNodeExceptTail(deleteNodeExceptTailList.getHead().next.next);
+        LOG.info("---------------DELETED NODE, PRINTING LIST NODES---------------");
+        LOG.info(deleteNodeExceptTailList.printNodes());
+        LOG.info("---------------DELETE NODE EXCEPT TAIL[END]---------------");
+
     }
 }

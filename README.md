@@ -8,6 +8,7 @@ Topic | Date |
 **N-th node of linked list** | **08-28-20** |
 **Reverse a linked list** | **09-01-20** |
 **Floyd Cycle Detection Algorithm, Remove Loop** | **09-04-20** |
+**Delete a Node** | **09-04-20** |
 
 Middle Node of Linked List
 ---------------------
@@ -46,3 +47,8 @@ _LinkedListAlgoUtils floydCycleDetection_
 _LinkedListAlgoUtils detectAndRemoveLoop_
 
 _LinkedListAlgoUtils detectAndRemoveLoopUsingFloydAlgorithm_
+
+Delete Node except Tail
+------------------------
+
+_LinkedListAlgoUtils deleteNodeExceptTail_
